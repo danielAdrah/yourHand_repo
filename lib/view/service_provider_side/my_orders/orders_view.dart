@@ -50,13 +50,16 @@ class _OrdersViewState extends State<OrdersView> {
                 child: ListView.builder(
                     itemCount: 25,
                     itemBuilder: (context, index) {
-                      return OrderTile(
-                        name: "داليا",
-                        onTap: () {
-                          //will take you to the orderDetaik view
-                          //and the name will display it from an api that gives all the the orders of this user
-                          Get.to(OrderDetailView());
-                        },
+                      return FadeInDown(
+                        delay: Duration(milliseconds: 200),
+                        child: OrderTile(
+                          name: "داليا",
+                          onTap: () {
+                            //will take you to the orderDetaik view
+                            //and the name will display it from an api that gives all the the orders of this user
+                            Get.to(OrderDetailView());
+                          },
+                        ),
                       );
                     }),
               ),

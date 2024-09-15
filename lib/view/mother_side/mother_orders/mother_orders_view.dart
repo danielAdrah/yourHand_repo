@@ -52,12 +52,15 @@ class _MotherOrdersViewState extends State<MotherOrdersView> {
                 child: ListView.builder(
                     itemCount: 25,
                     itemBuilder: (context, index) {
-                      return MotherOrderTile(
-                        onTap: () {
-                          // this will take you to the details of the order
-                          Get.to(MotherOrderDetailView());
-                        },
-                        service: "جليسة أطفال",
+                      return FadeInDown(
+                        delay: Duration(milliseconds: 200),
+                        child: MotherOrderTile(
+                          onTap: () {
+                            // this will take you to the details of the order
+                            Get.to(MotherOrderDetailView());
+                          },
+                          service: "جليسة أطفال",
+                        ),
                       );
                     }),
               ),
