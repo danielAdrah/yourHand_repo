@@ -5,13 +5,11 @@ import '../../../theme.dart';
 class OrderInfoTile extends StatelessWidget {
   final String value;
   final String title;
-   
+
   OrderInfoTile({
     super.key,
     required this.value,
     required this.title,
-    
-
   });
 
   @override
@@ -23,13 +21,13 @@ class OrderInfoTile extends StatelessWidget {
         textDirection: TextDirection.rtl,
         children: [
           Text(title,
-                  style: TextStyle(
-                    color: ThemeColor.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                  )),
+              style: TextStyle(
+                color: ThemeColor.white,
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+              )),
           Row(
-        textDirection: TextDirection.rtl,
+            textDirection: TextDirection.rtl,
             children: [
               Text(value,
                   style: TextStyle(
@@ -39,9 +37,6 @@ class OrderInfoTile extends StatelessWidget {
                   )),
             ],
           ),
-          
-
-         
         ],
       ),
     );

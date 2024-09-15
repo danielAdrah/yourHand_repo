@@ -2,20 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dialogs/flutter_dialogs.dart';
-import 'package:your_hand/common_widgets/settings_value.dart';
-
-import '../../../common_widgets/textField.dart';
 import '../../../theme.dart';
-import 'order_info_tile.dart';
+import '../../mother_side/mother_orders/order_info_tile.dart';
 
-class MotherOrderDetailView extends StatefulWidget {
-  const MotherOrderDetailView({super.key});
+class OrderDetailView extends StatefulWidget {
+  const OrderDetailView({super.key});
 
   @override
-  State<MotherOrderDetailView> createState() => _MotherOrderDetailViewState();
+  State<OrderDetailView> createState() => _OrderDetailViewState();
 }
 
-class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
+class _OrderDetailViewState extends State<OrderDetailView> {
   final TextEditingController newServiceName = TextEditingController();
   final TextEditingController newServiceStartDate = TextEditingController();
   final TextEditingController newServiceEndDate = TextEditingController();
@@ -55,7 +52,11 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
                           //here we will bring from the api the service that the mother ordered
                           //(the same service name that is displayed on the mother order tile)
                           OrderInfoTile(
-                            title: " : الخدمة المحجوزة",
+                            title: " : صاحبة الطلب",
+                            value: "داليا",
+                          ),
+                          OrderInfoTile(
+                            title: " : الخدمةالمرادة",
                             value: "جليسة أطفال",
                           ),
                           SizedBox(height: 5),
@@ -85,12 +86,12 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  //this to cancel the order
-                                  _cancelOrder(
+                                  _orderDialog(
                                     context,
                                     () {
-                                      //here we will put the method that will cancel the
+                                      //method for rejecting the order
                                     },
+                                    "هل تريد رفض الطلب؟",
                                   );
                                 },
                                 child: Container(
@@ -104,7 +105,7 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
                                           color: ThemeColor.primary
                                               .withOpacity(0.15))),
                                   child: Text(
-                                    "إلغاء الحجز",
+                                    "رفض الطلب",
                                     style: TextStyle(
                                         color: ThemeColor.white,
                                         fontSize: 12,
@@ -115,8 +116,13 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
                               SizedBox(width: 8),
                               InkWell(
                                 onTap: () {
-                                  //this to update the info of the order
-                                  _updateorder(context);
+                                  _orderDialog(
+                                    context,
+                                    () {
+                                      //method for accepting the order
+                                    },
+                                    "هل تريد قبول الطلب؟",
+                                  );
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -129,7 +135,7 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
                                           color: ThemeColor.primary
                                               .withOpacity(0.15))),
                                   child: Text(
-                                    "تعديل الحجز",
+                                    "قبول الطلب",
                                     style: TextStyle(
                                         color: ThemeColor.white,
                                         fontSize: 12,
@@ -152,11 +158,12 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
     );
   }
 
-  _cancelOrder(BuildContext context, void Function() onPressed) async {
+  _orderDialog(
+      BuildContext context, void Function() onPressed, String title) async {
     await showPlatformDialog(
       context: context,
       builder: (context) => BasicDialogAlert(
-        title: Center(child: Text("هل تريد إلغاء الطلب؟")),
+        title: Center(child: Text(title)),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -181,133 +188,5 @@ class _MotherOrderDetailViewState extends State<MotherOrderDetailView> {
         ],
       ),
     );
-  }
-
-  _updateorder(BuildContext context) async {
-    await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: IntrinsicWidth(
-              stepWidth: 350,
-              child: Form(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(height: 10),
-                    TextField(
-                      textAlign: TextAlign.end,
-                      controller: newServiceName,
-                      decoration: InputDecoration(
-                        hintText: "نوع الخدمة",
-                        hintStyle: TextStyle(color: ThemeColor.primary),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: ThemeColor.primary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColor.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: newServiceStartDate,
-                      textAlign: TextAlign.end,
-                      decoration: InputDecoration(
-                        hintText: "تاريخ البداية",
-                        hintStyle: TextStyle(color: ThemeColor.primary),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: ThemeColor.primary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColor.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      textAlign: TextAlign.end,
-                      controller: newServiceEndDate,
-                      decoration: InputDecoration(
-                        hintText: "تاريخ الانتهاء",
-                        hintStyle: TextStyle(color: ThemeColor.primary),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: ThemeColor.primary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColor.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      textAlign: TextAlign.end,
-                      controller: newServiceStartHour,
-                      decoration: InputDecoration(
-                        hintText: "ساعة البدء",
-                        hintStyle: TextStyle(color: ThemeColor.primary),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: ThemeColor.primary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColor.primary),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      textAlign: TextAlign.end,
-                      controller: newServiceEndHour,
-                      decoration: InputDecoration(
-                        hintText: "ساعة الانتهاء",
-                        hintStyle: TextStyle(color: ThemeColor.primary),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: ThemeColor.primary,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColor.primary),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  TextButton(
-                    child: Text('إلغاء',
-                        style: TextStyle(color: ThemeColor.primary)),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text('حفظ',
-                        style: TextStyle(color: ThemeColor.primary)),
-                    onPressed: () {
-                      // Save the changes here
-                      // print('Saved: ${_nameController.text} | ${_emailController.text}');
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              )
-            ],
-          );
-        });
   }
 }

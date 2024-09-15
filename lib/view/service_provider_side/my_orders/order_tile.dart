@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../theme.dart';
 
-
 class OrderTile extends StatelessWidget {
-   OrderTile({
+  OrderTile({
     super.key,
     required this.name,
     required this.onTap,
@@ -18,41 +17,43 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        //this will take you to the detail view of the order
-      },
+      onTap: onTap,
       child: Container(
-        padding:EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         margin: EdgeInsets.only(bottom: 10),
         child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Icon(
+                  Icons.arrow_back_ios,
+                  size: 25,
+                  color: ThemeColor.primary,
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                   Icon(Icons.arrow_back_ios,size: 25,color: ThemeColor.primary,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("لديك طلب من ${name}",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.task,
-                          color: ThemeColor.primary,
-                          size: 40,
-                        ),
-                      ],
+                    Text("لديك طلب من ${name}",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700)),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.task,
+                      color: ThemeColor.primary,
+                      size: 40,
                     ),
                   ],
                 ),
-                Divider(
-                    color: ThemeColor.black.withOpacity(0.2),
-                    indent: 50,
-                    endIndent: 50),
               ],
             ),
+            Divider(
+                color: ThemeColor.black.withOpacity(0.2),
+                indent: 50,
+                endIndent: 50),
+          ],
+        ),
       ),
-     
     );
   }
 }

@@ -57,7 +57,12 @@ class _MotherMainBottomBarState extends State<MotherMainBottomBar> {
                 label: 'الإشعارات',
               ),
               BottomNavigationBarItem(
-                icon:Center(child: Image(image: AssetImage("assets/img/womens-voice.png"),width: 40,height: 40,)) ,
+                icon: Center(
+                    child: Image(
+                  image: AssetImage("assets/img/womens-voice.png"),
+                  width: 40,
+                  height: 40,
+                )),
                 label: 'chat bot',
               ),
               BottomNavigationBarItem(
